@@ -1426,3 +1426,28 @@ lifestore_searches = [
     [1032, 95],
     [1033, 95]
 ]
+
+"""
+This is the LifeStore_SalesList data:
+
+lifestore_searches = [id_search, id product]
+lifestore_sales = [id_sale, id_product, score (from 1 to 5), date, refund (1 for true or 0 to false)]
+lifestore_products = [id_product, name, price, category, stock]
+
+1) Productos más vendidos y productos rezagados a partir del análisis de
+las categorías con menores ventas y categorías con menores búsquedas.
+2) Productos por reseña en el servicio a partir del análisis de categorías
+con mayores ventas y categorías con mayores búsquedas.
+3) Sugerir una estrategia de productos a retirar del mercado así como
+sugerencia de cómo reducir la acumulación de inventario considerando los
+datos de ingresos y ventas mensuales. 
+
+"""
+
+#Login de usuario
+
+#Variables y definiciones
+
+#Validaciones
+
+#Código
