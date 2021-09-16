@@ -6,6 +6,9 @@ lifestore_sales = [id_sale, id_product, score (from 1 to 5), date, refund (1 for
 lifestore_products = [id_product, name, price, category, stock]
 """
 
+from typing import List
+
+
 lifestore_products = [
     [1, 'Procesador AMD Ryzen 3 3300X S-AM4, 3.80GHz, Quad-Core, 16MB L2 Cache', 3019, 'procesadores', 16],
     [2, 'Procesador AMD Ryzen 5 3600, S-AM4, 3.60GHz, 32MB L3 Cache, con Disipador Wraith Stealth', 4209, 'procesadores', 182],
@@ -1428,11 +1431,6 @@ lifestore_searches = [
 ]
 
 """
-This is the LifeStore_SalesList data:
-
-lifestore_searches = [id_search, id product]
-lifestore_sales = [id_sale, id_product, score (from 1 to 5), date, refund (1 for true or 0 to false)]
-lifestore_products = [id_product, name, price, category, stock]
 
 1) Productos más vendidos y productos rezagados a partir del análisis de
 las categorías con menores ventas y categorías con menores búsquedas.
@@ -1443,11 +1441,112 @@ sugerencia de cómo reducir la acumulación de inventario considerando los
 datos de ingresos y ventas mensuales. 
 
 """
+#CÓDIGO
 
 #Login de usuario
+print('Crea una cuenta\n')
+usr = input('Crea un nombre de usuario: \n')
+password = input('Crea tu password: \n')
+print('Login\n')
+while True:
+    usr_login = input('Ingresa tu usuario: \n')
+    password_login = input('Ingresa tu password: \n')
+    if(usr == usr_login and password==password_login):
+        break
+    print('Revisa tu usuario y contraseña')
+  
+print('Bienvenido')  
 
 #Variables y definiciones
+id_productos=[] #Lista
+ventas_producto=[] #Lista
+busquedas_producto=[] #Lista
+resagados = [] #Lista
 
-#Validaciones
+for sale in lifestore_sales:
+    if sale[1] not in id_productos:
+        id_productos.append(sale[1])
+    
+for id_producto in id_productos:
+    ventas_producto.append([id_producto, 0, "", ""])
+    
+for venta in ventas_producto:
+    for sale in lifestore_sales:
+        if sale[1] == venta[0]:
+            venta[1] += 1
+        
+for venta in ventas_producto:
+    for prod in lifestore_products:
+        if prod[0] == venta[0]:
+            venta[2] = prod[1]
+            venta[3] = prod[3]
+        else: 
+            resagados.append(prod[1])
+            
+# for id_p in id_productos:
+#     print(id_p)
 
-#Código
+#Productos vendidos
+print('Productos vendidos')
+for v in ventas_producto:
+    print(v)
+
+#Productos rezagados
+# for resagado in resagados:
+#      print(resagado)
+    
+#Categorias
+categorias=[]
+
+for producto in lifestore_products:
+    if producto[3] not in categorias:
+        categorias.append(producto[3])
+        
+# for categoria in categorias:
+#     print(categoria)
+    
+categoria_productos = []
+   
+for categoria in categorias:
+    categoria_productos.append([categoria, 0])
+    
+#Productos vendidos por categoría
+# for lista in categoria_productos:
+#     for producto in ventas_producto:
+#         if producto[3] == lista[0]:
+#             lista[1] += producto[1]
+            
+# for cat_prods in categoria_productos:
+#     print(cat_prods)
+    
+#Búsquedas
+for search in lifestore_searches:
+    if search[1] not in id_productos:
+        id_productos.append(search[1])
+        
+for id_producto in id_productos:
+    busquedas_producto.append([id_producto, 0, "", ""])
+    
+for busqueda in busquedas_producto:
+    for search in lifestore_searches:
+        if search[1] == busqueda[0]:
+            busqueda[1] += 1
+        
+for busqueda in busquedas_producto:
+    for prod in lifestore_products:
+        if prod[0] == busqueda[0]:
+            busqueda[2] = prod[1]
+            busqueda[3] = prod[3]
+      
+print('Productos buscados')      
+for b in busquedas_producto:
+    print(b)
+    
+#Productos búscados por categoría
+for lista in categoria_productos:
+    for search in busquedas_producto:
+        if search[3] == lista[0]:
+            lista[1] += search[1]
+            
+for cat_prods in categoria_productos:
+    print(cat_prods)
